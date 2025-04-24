@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center text-slate-800 mb-2">Image Gallery</h1>
+        <p class="text-center text-gray-600 mb-8">Explore Varda's beautiful collection of images</p>
+        
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+            <button class="filter-btn active bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full transition" data-category="all">All</button>
+            <button class="filter-btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full transition" data-category="nature">Nature</button>
+            <button class="filter-btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full transition" data-category="architecture">Architecture</button>
+            <button class="filter-btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full transition" data-category="animals">Animals</button>
+            <button class="filter-btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full transition" data-category="food">Food</button>
+        </div>
+        
+        <div class="flex justify-center mb-6">
+            <div class="bg-white rounded-full shadow-md p-1 flex">
+                <button id="grid-view" class="view-btn px-4 py-2 rounded-full bg-blue-500 text-white">
+                    <i class="bi bi-grid-3x3-gap-fill mr-1"></i> Grid
+                </button>
+                <button id="list-view" class="view-btn px-4 py-2 rounded-full text-gray-700">
+                    <i class="bi bi-list-ul mr-1"></i> List
+                </button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading-spinner"></div>
+
+        <!-- Gallery Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2" id="gallery" style="display: none;">
+    <!-- Nature Images -->
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="nature">
+        <img src="images/Mountains.jpg" alt="Mountains" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Mountain Range</h3>
+            <p class="text-sm text-gray-600">Majestic mountain views</p>
+        </div>
+    </div>
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="nature">
+        <img src="images/Lake.jpg" alt="Lake" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Calm Lake</h3>
+            <p class="text-sm text-gray-600">Serene water reflection</p>
+        </div>
+    </div>
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="nature">
+        <img src="images/Beach.jpg" alt="Beach" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Sandy Beach</h3>
+            <p class="text-sm text-gray-600">Golden sands and blue waters</p>
+        </div>
+    </div>
+
+    <!-- Architecture Images -->
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="architecture">
+        <img src="images/ModernArch.jpg" alt="Modern Architecture" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Modern Building</h3>
+            <p class="text-sm text-gray-600">Contemporary architectural design</p>
+        </div>
+    </div>
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="architecture">
+        <img src="images/HistoricArch.jpg" alt="Historic Building" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Historic Structure</h3>
+            <p class="text-sm text-gray-600">Ancient architectural marvel</p>
+        </div>
+    </div>
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="architecture">
+        <img src="images/BridgeArch.jpg" alt="Bridge" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Suspension Bridge</h3>
+            <p class="text-sm text-gray-600">Engineering masterpiece</p>
+        </div>
+    </div>
+
+    <!-- Animals Images -->
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="animals">
+        <img src="images/Dolphin.jpg" alt="Dolphin" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Dolphin</h3>
+            <p class="text-sm text-gray-600">Intelligent marine mammal</p>
+        </div>
+    </div>
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="animals">
+        <img src="images/Eagle.jpg" alt="Eagle" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Eagle</h3>
+            <p class="text-sm text-gray-600">Majestic bird of prey</p>
+        </div>
+    </div>
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="animals">
+        <img src="images/Dog.jpg" alt="Dog" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Dog</h3>
+            <p class="text-sm text-gray-600">Loyal Friend to us</p>
+        </div>
+    </div>
+
+    <!-- Food Images -->
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="food">
+        <img src="images/Pasta.jpg" alt="Pasta" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Pasta</h3>
+            <p class="text-sm text-gray-600">Italian delicacy</p>
+        </div>
+    </div>
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="food">
+        <img src="images/Dessert.jpg" alt="Dessert" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Dessert</h3>
+            <p class="text-sm text-gray-600">Sweet treats and indulgences</p>
+        </div>
+    </div>
+    <div class="gallery-item rounded-lg overflow-hidden shadow-lg" data-category="food">
+        <img src="images/Burger.jpg" alt="Burger" class="w-full h-64 object-cover">
+        <div class="image-overlay"><i class="bi bi-zoom-in"></i></div>
+        <div class="p-3 bg-white">
+            <h3 class="font-semibold text-lg">Burger</h3>
+            <p class="text-sm text-gray-600">Classic American favorite</p>
+        </div>
+    </div>
+</div>
+
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 hidden flex-col items-center justify-center z-50">
+            <button class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 transition" id="closeLightbox">
+                <i class="bi bi-x-circle"></i>
+            </button>
+            
+            <!-- Navigation buttons -->
+            <button id="prev-btn" class="nav-btn"><i class="bi bi-chevron-left"></i></button>
+            <button id="next-btn" class="nav-btn"><i class="bi bi-chevron-right"></i></button>
+            
+            <img src="" alt="Lightbox Image" class="max-w-[90%] max-h-[80vh] object-contain" id="lightboxImage">
+            <div class="text-white mt-4 text-center">
+                <h3 id="lightboxTitle" class="text-xl font-semibold"></h3>
+                <p id="lightboxDescription" class="text-sm opacity-80 mt-1"></p>
+                <div class="mt-2">
+                    <span id="currentImageIndex" class="text-yellow-400"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
